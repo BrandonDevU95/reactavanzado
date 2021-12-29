@@ -9,8 +9,15 @@ const typeDefs = gql`
       creado: String
    }
 
+   input UsuarioInput {
+      nombre: String!
+      apellido: String!
+      email: String!
+      password: String!
+   }
+
    type Mutation {
-      nuevoUsuario: Usuario
+      nuevoUsuario(input: UsuarioInput): Usuario
    }
 `;
 

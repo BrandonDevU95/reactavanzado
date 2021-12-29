@@ -1,6 +1,8 @@
 const resolvers = {
    Mutation: {
-      nuevoUsuario: () => 'Creado un nuevo usuario',
+      nuevoUsuario: (_, { input }) => {
+         console.log('Creando...');
+      },
    },
 };
 
