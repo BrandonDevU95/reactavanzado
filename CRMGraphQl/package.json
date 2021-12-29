@@ -1,0 +1,26 @@
+{
+   "name": "crmgraphqlcurso",
+   "version": "1.0.0",
+   "description": "Curso de GraphQl",
+   "main": "index.js",
+   "scripts": {
+      "start": "node .",
+      "dev": "nodemon ."
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/BrandonDevU95/reactavanzado.git"
+   },
+   "author": "BrandonUdev",
+   "license": "MIT",
+   "bugs": {
+      "url": "https://github.com/BrandonDevU95/reactavanzado/issues"
+   },
+   "homepage": "https://github.com/BrandonDevU95/reactavanzado#readme",
+   "dependencies": {
+      "apollo-server": "^3.5.0"
+   },
+   "devDependencies": {
+      "nodemon": "^2.0.15"
+   }
+}
