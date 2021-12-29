@@ -1,4 +1,8 @@
 const { ApolloServer, gql } = require('apollo-server');
+const conectarDB = require('./config/db');
+
+//Conectar a la base de datos
+conectarDB();
 
 //Schema
 const typeDefs = gql`
