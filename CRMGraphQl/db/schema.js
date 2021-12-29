@@ -17,7 +17,7 @@ const typeDefs = gql`
    type Producto {
       id: ID
       nombre: String
-      exiatencia: Int
+      existencia: Int
       precio: Float
       creado: String
    }
@@ -40,7 +40,7 @@ const typeDefs = gql`
 
    input ProductoInput {
       nombre: String!
-      exiatencia: Int!
+      existencia: Int!
       precio: Float!
    }
 
