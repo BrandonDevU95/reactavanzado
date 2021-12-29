@@ -22,10 +22,6 @@ const typeDefs = gql`
       creado: String
    }
 
-   type Query {
-      obtenerUsuario(token: String!): Usuario
-   }
-
    input UsuarioInput {
       nombre: String!
       apellido: String!
@@ -42,6 +38,14 @@ const typeDefs = gql`
       nombre: String!
       existencia: Int!
       precio: Float!
+   }
+
+   type Query {
+      #Usuarios
+      obtenerUsuario(token: String!): Usuario
+
+      #Productos
+      obtenerProductos: [Producto]
    }
 
    type Mutation {
