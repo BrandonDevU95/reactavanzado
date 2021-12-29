@@ -18,7 +18,8 @@
    },
    "homepage": "https://github.com/BrandonDevU95/reactavanzado#readme",
    "dependencies": {
-      "apollo-server": "^3.5.0"
+      "apollo-server": "^3.5.0",
+      "graphql": "^16.2.0"
    },
    "devDependencies": {
       "nodemon": "^2.0.15"
