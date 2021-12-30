@@ -341,6 +341,24 @@ const resolvers = {
             console.log(error);
          }
       },
+      eliminarPedido: async (_, { id }, ctx) => {
+         try {
+            const pedido = await Pedido.findById(id);
+
+            if (!pedido) {
+               throw new Error('Pedido no encontrado');
+            }
+
+            if (pedido.vendedor.toString() !== ctx.usuario.id.toString()) {
+               throw new Error('No tienes permisos para eliminar este pedido');
+            }
+
+            await Pedido.findOneAndDelete({ _id: id });
+            return 'Pedido Eliminado';
+         } catch (error) {
+            console.log(error);
+         }
+      },
    },
 };
 
