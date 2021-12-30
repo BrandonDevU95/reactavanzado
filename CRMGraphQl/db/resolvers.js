@@ -116,15 +116,15 @@ const resolvers = {
             console.log(error);
          }
       },
-      nuevoCliente: async (_, { input }) => {
+      nuevoCliente: async (_, { input }, ctx) => {
          try {
-            //Verificar si el cliente esta registrado
             const { email } = input;
             const existeCliente = await Cliente.findOne({ email });
             if (existeCliente) {
                throw new Error('El cliente ya existe');
             }
             const cliente = new Cliente(input);
+            cliente.vendedor = ctx.usuario.id;
 
             try {
                const resultado = await cliente.save();
