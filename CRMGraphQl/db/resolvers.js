@@ -1,6 +1,7 @@
 const Usuario = require('../models/Usuarios');
 const Producto = require('../models/Producto');
 const Cliente = require('../models/Cliente');
+const Pedido = require('../models/Pedido');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
@@ -207,6 +208,25 @@ const resolvers = {
 
             await Cliente.findOneAndDelete({ _id: id });
             return 'Cliente Eliminado';
+         } catch (error) {
+            console.log(error);
+         }
+      },
+      nuevoPedido: async (_, { input }, ctx) => {
+         try {
+            const { cliente } = input;
+            const existeCliente = await Cliente.findById(cliente);
+            if (!existeCliente) {
+               throw new Error('Cliente no encontrado');
+            }
+
+            if (
+               existeCliente.vendedor.toString() !== ctx.usuario.id.toString()
+            ) {
+               throw new Error('No tienes permisos para realizar este pedido');
+            }
+
+            console.log(ctx.usuario.id);
          } catch (error) {
             console.log(error);
          }
