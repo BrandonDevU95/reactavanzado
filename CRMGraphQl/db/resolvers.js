@@ -91,6 +91,23 @@ const resolvers = {
             console.log(error);
          }
       },
+      obtenerPedido: async (_, { id }, ctx) => {
+         try {
+            const pedido = await Pedido.findById(id);
+
+            if (!pedido) {
+               throw new Error('Pedido no encontrado');
+            }
+
+            if (pedido.vendedor.toString() !== ctx.usuario.id.toString()) {
+               throw new Error('No tienes permisos para ver este pedido');
+            }
+
+            return pedido;
+         } catch (error) {
+            console.log(error);
+         }
+      },
    },
    Mutation: {
       nuevoUsuario: async (_, { input }) => {
