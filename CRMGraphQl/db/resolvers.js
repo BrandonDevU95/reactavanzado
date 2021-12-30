@@ -171,6 +171,28 @@ const resolvers = {
             console.log(error);
          }
       },
+      actualizarCliente: async (_, { id, input }, ctx) => {
+         try {
+            let cliente = await Cliente.findById(id);
+
+            if (!cliente) {
+               throw new Error('Cliente no encontrado');
+            }
+
+            if (cliente.vendedor.toString() !== ctx.usuario.id.toString()) {
+               throw new Error(
+                  'No tienes permisos para actualizar este cliente'
+               );
+            }
+
+            cliente = await Cliente.findOneAndUpdate({ _id: id }, input, {
+               new: true,
+            });
+            return cliente;
+         } catch (error) {
+            console.log(error);
+         }
+      },
    },
 };
 
