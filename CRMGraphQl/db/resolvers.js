@@ -238,10 +238,18 @@ const resolvers = {
                   throw new Error(
                      `El producto ${producto.nombre} no tiene existencia suficiente`
                   );
+               } else {
+                  producto.existencia -= articulo.cantidad;
+                  await producto.save();
                }
+
+               const nuevoPedido = new Pedido(input);
+               nuevoPedido.vendedor = ctx.usuario.id;
+               const resultado = await nuevoPedido.save();
+               return resultado;
             }
          } catch (error) {
-            console.log(error);
+            console.log(error.message);
          }
       },
    },
