@@ -277,14 +277,68 @@ const resolvers = {
                   producto.existencia -= articulo.cantidad;
                   await producto.save();
                }
-
-               const nuevoPedido = new Pedido(input);
-               nuevoPedido.vendedor = ctx.usuario.id;
-               const resultado = await nuevoPedido.save();
-               return resultado;
             }
+
+            const nuevoPedido = new Pedido(input);
+            nuevoPedido.vendedor = ctx.usuario.id;
+            const resultado = await nuevoPedido.save();
+            return resultado;
          } catch (error) {
             console.log(error.message);
+         }
+      },
+      actualizarPedido: async (_, { id, input }, ctx) => {
+         const { cliente } = input;
+         try {
+            let existePedido = await Pedido.findById(id);
+
+            if (!existePedido) {
+               throw new Error('Pedido no encontrado');
+            }
+
+            const existeCliente = await Cliente.findById(cliente);
+            if (!existeCliente) {
+               throw new Error('Cliente no encontrado');
+            }
+
+            if (
+               existeCliente.vendedor.toString() !== ctx.usuario.id.toString()
+            ) {
+               throw new Error(
+                  'No tienes permisos para actualizar este pedido'
+               );
+            }
+
+            if (input.pedido) {
+               for await (const articulo of input.pedido) {
+                  const { id } = articulo;
+                  const producto = await Producto.findById(id);
+
+                  if (!producto) {
+                     throw new Error('Producto no encontrado');
+                  }
+
+                  if (articulo.cantidad > producto.existencia) {
+                     throw new Error(
+                        `El producto ${producto.nombre} no tiene existencia suficiente`
+                     );
+                  } else {
+                     producto.existencia -= articulo.cantidad;
+                     await producto.save();
+                  }
+               }
+            }
+
+            const resultado = await Pedido.findOneAndUpdate(
+               { _id: id },
+               input,
+               {
+                  new: true,
+               }
+            );
+            return resultado;
+         } catch (error) {
+            console.log(error);
          }
       },
    },
