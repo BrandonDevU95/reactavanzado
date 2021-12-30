@@ -193,6 +193,24 @@ const resolvers = {
             console.log(error);
          }
       },
+      eliminarCliente: async (_, { id }, ctx) => {
+         try {
+            const cliente = await Cliente.findById(id);
+
+            if (!cliente) {
+               throw new Error('Cliente no encontrado');
+            }
+
+            if (cliente.vendedor.toString() !== ctx.usuario.id.toString()) {
+               throw new Error('No tienes permisos para eliminar este cliente');
+            }
+
+            await Cliente.findOneAndDelete({ _id: id });
+            return 'Cliente Eliminado';
+         } catch (error) {
+            console.log(error);
+         }
+      },
    },
 };
 
