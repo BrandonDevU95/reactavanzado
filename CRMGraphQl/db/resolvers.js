@@ -55,6 +55,23 @@ const resolvers = {
             console.log(error);
          }
       },
+      obtenerCliente: async (_, { id }, ctx) => {
+         try {
+            const cliente = await Cliente.findById(id);
+
+            if (!cliente) {
+               throw new Error('Cliente no encontrado');
+            }
+
+            if (cliente.vendedor.toString() !== ctx.usuario.id.toString()) {
+               throw new Error('No tienes permisos para ver este cliente');
+            }
+
+            return cliente;
+         } catch (error) {
+            console.log(error);
+         }
+      },
    },
    Mutation: {
       nuevoUsuario: async (_, { input }) => {
