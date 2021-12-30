@@ -226,7 +226,20 @@ const resolvers = {
                throw new Error('No tienes permisos para realizar este pedido');
             }
 
-            console.log(ctx.usuario.id);
+            for await (const articulo of input.pedido) {
+               const { id } = articulo;
+               const producto = await Producto.findById(id);
+
+               if (!producto) {
+                  throw new Error('Producto no encontrado');
+               }
+
+               if (articulo.cantidad > producto.existencia) {
+                  throw new Error(
+                     `El producto ${producto.nombre} no tiene existencia suficiente`
+                  );
+               }
+            }
          } catch (error) {
             console.log(error);
          }
