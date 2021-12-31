@@ -52,8 +52,15 @@ export default function NuevaCuenta() {
                            placeholder="Nombre Usuario"
                            value={formik.values.nombre}
                            onChange={formik.handleChange}
+                           onBlur={formik.handleBlur}
                         />
                      </div>
+                     {formik.errors.nombre && formik.touched.nombre ? (
+                        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                           <p className="font-bold">Error</p>
+                           <p>{formik.errors.nombre}</p>
+                        </div>
+                     ) : null}
                      <div className="mb-4">
                         <label
                            className="block br-gray-700 text-sm font-bold mb-2"
@@ -68,8 +75,15 @@ export default function NuevaCuenta() {
                            placeholder="Apellido Usuario"
                            value={formik.values.apellido}
                            onChange={formik.handleChange}
+                           onBlur={formik.handleBlur}
                         />
                      </div>
+                     {formik.errors.apellido && formik.touched.apellido ? (
+                        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                           <p className="font-bold">Error</p>
+                           <p>{formik.errors.apellido}</p>
+                        </div>
+                     ) : null}
                      <div className="mb-4">
                         <label
                            className="block br-gray-700 text-sm font-bold mb-2"
@@ -84,8 +98,15 @@ export default function NuevaCuenta() {
                            placeholder="Email Usuario"
                            value={formik.values.email}
                            onChange={formik.handleChange}
+                           onBlur={formik.handleBlur}
                         />
                      </div>
+                     {formik.errors.email && formik.touched.email ? (
+                        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                           <p className="font-bold">Error</p>
+                           <p>{formik.errors.email}</p>
+                        </div>
+                     ) : null}
                      <div>
                         <label
                            className="block br-gray-700 text-sm font-bold mb-2"
@@ -100,8 +121,15 @@ export default function NuevaCuenta() {
                            placeholder="Password Usuario"
                            value={formik.values.password}
                            onChange={formik.handleChange}
+                           onBlur={formik.handleBlur}
                         />
                      </div>
+                     {formik.errors.password && formik.touched.password ? (
+                        <div className="my-2 bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                           <p className="font-bold">Error</p>
+                           <p>{formik.errors.password}</p>
+                        </div>
+                     ) : null}
                      <input
                         type="submit"
                         className="bg-gray-800 w-full mt-5 p-2 text-white uppercase hover:bg-gray-900"
