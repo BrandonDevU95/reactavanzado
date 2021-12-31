@@ -2,8 +2,23 @@ import React from 'react';
 import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useQuery, gql } from '@apollo/client';
+
+const QUERY = gql`
+   query obtenerProductos {
+      obtenerProductos {
+         id
+         nombre
+         precio
+         existencia
+         creado
+      }
+   }
+`;
 
 export default function NuevaCuenta() {
+   const { data } = useQuery(QUERY);
+   console.log(data);
    const formik = useFormik({
       initialValues: {
          nombre: '',
