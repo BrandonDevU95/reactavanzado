@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function Sidebar() {
    return (
@@ -6,6 +7,23 @@ export default function Sidebar() {
          <div>
             <p className="text-white text-2xl font-black">CRM Clientes</p>
          </div>
+         <nav className="mt-5 list-none">
+            <li>
+               <Link href="/">
+                  <a className="text-white mb-2 block">Clientes</a>
+               </Link>
+            </li>
+            <li>
+               <Link href="/pedidos">
+                  <a className="text-white mb-2 block">Pedidos</a>
+               </Link>
+            </li>
+            <li>
+               <Link href="/productos">
+                  <a className="text-white mb-2 block">Productos</a>
+               </Link>
+            </li>
+         </nav>
       </aside>
    );
 }
