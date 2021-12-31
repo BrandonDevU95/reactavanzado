@@ -140,11 +140,47 @@ const resolvers = {
                   },
                },
                {
+                  $limit: 10,
+               },
+               {
                   $sort: { total: -1 },
                },
             ]);
 
             return clientes;
+         } catch (error) {
+            console.log(error);
+         }
+      },
+      mejoresVendedores: async () => {
+         try {
+            const vendedores = await Pedido.aggregate([
+               {
+                  $match: { estado: 'COMPLETADO' },
+               },
+               {
+                  $group: {
+                     _id: '$vendedor',
+                     total: { $sum: '$total' },
+                  },
+               },
+               {
+                  $lookup: {
+                     from: 'usuarios',
+                     localField: '_id',
+                     foreignField: '_id',
+                     as: 'vendedor',
+                  },
+               },
+               {
+                  $limit: 3,
+               },
+               {
+                  $sort: { total: -1 },
+               },
+            ]);
+
+            return vendedores;
          } catch (error) {
             console.log(error);
          }
