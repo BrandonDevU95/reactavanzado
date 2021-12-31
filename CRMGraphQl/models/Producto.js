@@ -22,4 +22,6 @@ const ProductosSchemma = new mongoose.Schema({
    },
 });
 
+ProductosSchemma.index({ nombre: 'text' });
+
 module.exports = mongoose.model('Productos', ProductosSchemma);

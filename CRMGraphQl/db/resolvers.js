@@ -185,6 +185,17 @@ const resolvers = {
             console.log(error);
          }
       },
+      buscarProducto: async (_, { texto }) => {
+         try {
+            const productos = await Producto.find({
+               $text: { $search: texto },
+            }).limit(10);
+
+            return productos;
+         } catch (error) {
+            console.log(error);
+         }
+      },
    },
    Mutation: {
       nuevoUsuario: async (_, { input }) => {
