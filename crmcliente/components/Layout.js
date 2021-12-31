@@ -22,8 +22,12 @@ export default function Layout({ children }) {
                referrerpolicy="no-referrer"
             />
          </Head>
-         <Sidebar />
-         {children}
+         <div className="bg-gray-200 min-h-screen">
+            <div className="flex minh-screen">
+               <Sidebar />
+               {children}
+            </div>
+         </div>
       </>
    );
 }
